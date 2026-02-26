@@ -2,17 +2,17 @@
     {
       "title": "Pride and Prejudice",
       "author": "Jane Austen",
-      "image": "/images/book1.jpg"
+      "image": "images/book1.jpg"
       
     },
     {
         "title": "Pride and Prejudice",
         "author": "This book is about...",
-        "image": "/images/book1.jpg"
+        "image": "images/book1.jpg"
     },
     {
         "title": "Pride and Prejudice",
         "author": "This book is about...",
-        "image": "/images/book1.jpg"
+        "image": "images/book1.jpg"
     }
   ]
