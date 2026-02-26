@@ -1,0 +1,17 @@
+[
+    {
+      "title": "My First Project",
+      "image": "/images/project1.png",
+      "description": "This project explores..."
+    },
+    {
+      "title": "My Second Project",
+      "image": "/images/project1.png",
+      "description": "In this project, I..."
+    },
+    {"title": "My Third Project",
+    "image": "/images/project1.png",
+    "description": "In this project, I..."
+    }
+  ]
+  

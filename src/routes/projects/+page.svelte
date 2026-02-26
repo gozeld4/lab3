@@ -1,7 +1,13 @@
+<script>
+    import projects from '$lib/projects.json';
+    import Project from '$lib/Project.svelte';
+</script>
+
 <svelte:head>
   <title>Projects</title>
 </svelte:head>
-<h1>Projects</h1>
+
+<h1>{ projects.length } Projects</h1>
 <nav>
   <a href=".">Home</a>
   <a class="current" href="projects">Projects</a>
@@ -11,66 +17,9 @@
 </nav>
     
     <div class="projects">
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
-        <article>
-            <h2>Lorem ipsum dolor sit</h2>
-            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
-        </article>
+        {#each projects as project}
+        <Project data={project} />
+        {/each}
     </div>
     
 

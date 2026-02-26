@@ -82,21 +82,20 @@ img {
     height: auto;
 }
 
+
+
+/* Projects grid - horizontal row */
 .projects {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
-    grid-auto-rows: auto;
     gap: 1em;
 }
 
-.projects article {
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: span 3;
-}
-
-.projects article h2 {
-    margin: 0;
+/* Reading list - vertical column */
+.reading {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
 /* Resume Page Styles */
