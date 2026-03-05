@@ -3,13 +3,7 @@
 </svelte:head>
 
 <h1>Contact</h1>
-<nav>
-  <a href=".">Home</a>
-  <a href="projects">Projects</a>
-  <a class="current" href="contact">Contact</a>
-  <a href="resume">Resume</a>
-  <a href="https://github.com/gozeld4" target="_blank">GitHub</a>
-</nav>
+
     
     <form action="mailto:gozeld4@gmail.com" method="GET">
         <label for="email">

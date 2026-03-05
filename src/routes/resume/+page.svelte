@@ -2,13 +2,7 @@
   <title>Resume</title>
 </svelte:head>
 <h1>Resume</h1>
-<nav>
-  <a href=".">Home</a>
-  <a href="projects">Projects</a>
-  <a href="contact">Contact</a>
-  <a class="current" href="resume">Resume</a>
-  <a href="https://github.com/gozeld4" target="_blank">GitHub</a>
-</nav>
+
     
     <main class="resume-container">
         <a href="resume.pdf" download class="download-button">Download Resume</a>
