@@ -1,21 +1,66 @@
 [
-    {
-      "title": "My First Project",
-      "image": "images/project1.png",
-      "description": "This project explores..."
-    },
-    {
-      "title": "My Second Project",
-      "image": "images/project1.png",
-      "description": "In this project, I..."
-    },
-    {"title": "My Third Project",
+  {
+    "title": "Chemistry Olympiad Competitor",
+    "year": 2021,
+    "image": "images/p1.jpg",
+    "description": "National and international chemistry olympiad participation",
+    "story": "Competed in chemistry olympiads, developing a deep foundation in advanced chemical principles and problem-solving that would shape my scientific journey."
+  },
+  {
+    "title": "Copper-Doped Zeolites for Methane Mitigation",
+    "year": 2022,
+    "image": "images/p2.png",
+    "description": "Experimental research on zeolite catalysts for greenhouse gas reduction",
+    "story": "Joined the Plata Lab at MIT to investigate copper-doped zeolites as catalysts for methane oxidation, driven by a desire to apply chemistry to combat climate change."
+  },
+  {
+    "title": "MOF-Based Membranes for Solvent Separation",
+    "year": 2023,
+    "image": "images/p3.jpg",
+    "description": "Sustainable membrane technology using metal-organic frameworks",
+    "story": "Moved to the Smith Lab at MIT to engineer MOF-based membranes for industrial solvent separation, continuing my focus on chemistry for sustainability and green processes."
+  },
+  {
+    "title": "MOFs for Electrochemical CO₂ Reduction",
+    "year": 2024,
+    "image": "images/p4.jpg",
+    "description": "Porous framework materials as electrocatalysts for carbon capture",
+    "story": "Joined Professor Camille Petit's group at Imperial College London to explore MOFs as electrocatalysts for CO₂ reduction, bridging materials chemistry and climate solutions."
+  },
+  {
+    "title": "Machine Learning Prediction of Drug Solubility",
+    "year": 2024,
+    "image": "images/p5.png",
+    "description": "ML models for predicting aqueous solubility of pharmaceutical compounds",
+    "story": "Began my pivot to computational chemistry by developing machine learning models to predict drug solubility, combining my chemistry background with data-driven approaches for the first time."
+  },
+  {
+    "title": "ML-Driven MOF Discovery",
+    "year": 2024,
+    "image": "images/p6.jpg",
+    "description": "Accelerating metal-organic framework design using machine learning",
+    "story": "Collaborated with Heather Kulik's group at MIT to apply ML to high-throughput MOF screening, uniting my experimental materials chemistry experience with computational methods."
+  },
+  {
+    "title": "ML for Materials Discovery — Industry Internship",
+    "year": 2025,
+    "image": "images/p7.png",
+    "description": "Applied machine learning to accelerate functional materials discovery",
+    "story": "Took an industry internship deploying ML pipelines for materials discovery, gaining experience translating academic research methods into scalable, real-world applications."
+  },
+  {
+    "title": "ML for Drug Discovery with the Coley Group",
+    "year": 2025,
+    "image": "images/p8.ppm",
+    "description": "Machine learning approaches to automated drug discovery at MIT",
+    "story": "Joined Connor Coley's group at MIT to work on ML-driven drug discovery, applying graph neural networks and generative models to navigate vast chemical spaces for therapeutic candidates."
+  },
+  {
+    "title": "Generative ML for Small Molecule Discovery",
+    "year": 2026,
     "image": "images/project1.png",
-    "description": "In this project, I..."
-    },
-    {"title": "My 4th Project",
-    "image": "images/project1.png",
-    "description": "In this project, I..."
-    }
-  ]
+    "description": "Deep generative models for de novo small molecule design",
+    "story": "Pushed the frontier of computational drug discovery by developing generative ML architectures for de novo small molecule design, synthesizing everything I had learned across experimental and computational chemistry."
+  }
+]
   
