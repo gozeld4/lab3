@@ -5,6 +5,7 @@
 <article>
     <h2>{data.title}</h2>
     <img src={data.image} alt={data.title}>
+    <p class="year">{data.year}</p>
     <p>{data.description}</p>
 </article>
 
@@ -12,7 +13,14 @@
     article {
         display: grid;
         grid-template-rows: subgrid;
-        grid-row: span 3;
+        grid-row: span 4;
+    }
+
+    article .year {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #888;
+        font-style: italic;
     }
     
     article h2 {
