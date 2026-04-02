@@ -2,12 +2,13 @@
     import * as d3 from 'd3';
 
     let width = 500;
-    let height = 300;
+    let height = 240;
 
     export let data = [];
+    export let title = "";
 
     // Extra left margin to fit language name labels on the y-axis
-    let margin = { top: 40, right: 180, bottom: 50, left: 80 };
+    let margin = { top: 32, right: 170, bottom: 42, left: 78 };
     let innerWidth  = width  - margin.left - margin.right;
     let innerHeight = height - margin.top  - margin.bottom;
 
@@ -29,11 +30,11 @@
     let xAxis, yAxis;
 
     $: if (xAxis && yAxis) {
-        d3.select(yAxis).call(d3.axisLeft(yScale));
         d3.select(xAxis).call(
             d3.axisBottom(xScale)
-                .tickFormat(d => Number.isInteger(d) ? d : "")
+                .ticks(Math.min(d3.max(data, d => d.value) || 1, 10))
         );
+        d3.select(yAxis).call(d3.axisLeft(yScale));
     }
 </script>
 
@@ -42,10 +43,10 @@
         <!-- Chart title -->
         <text
             x={margin.left + innerWidth / 2}
-            y={margin.top / 2}
+            y={margin.top / 2 + 2}
             text-anchor="middle"
             class="chart-title">
-            Lines of Code by Language
+            {title}
         </text>
 
         <!-- x-axis at bottom of chart area -->
@@ -78,19 +79,11 @@
                     stroke="currentColor"
                     stroke-width="2"
                 />
-                <!-- leader line from end of bar -->
-                <line
-                    x1={xScale(maxBar.value)}
-                    y1={yScale(maxBar.label) + yScale.bandwidth() / 2}
-                    x2={xScale(maxBar.value) + 10}
-                    y2={yScale(maxBar.label) + yScale.bandwidth() / 2}
-                    stroke="currentColor"
-                    stroke-width="1"
-                />
                 <!-- annotation text -->
                 <text
-                    x={xScale(maxBar.value) + 15}
+                    x={xScale(maxBar.value) + 8}
                     y={yScale(maxBar.label) + yScale.bandwidth() / 2}
+                    text-anchor="start"
                     dominant-baseline="middle"
                     class="annotation">
                     Most lines of code
@@ -100,16 +93,17 @@
             <!-- x-axis label -->
             <text
                 x={innerWidth / 2}
-                y={innerHeight + margin.bottom - 10}
+                y={innerHeight + margin.bottom - 16}
                 text-anchor="middle"
                 class="axis-label">
-                Lines of Code
+                <tspan x={innerWidth / 2} dy="0">Lines of</tspan>
+                <tspan x={innerWidth / 2} dy="0.95em">Code</tspan>
             </text>
 
             <!-- y-axis label -->
             <text
                 x={-(innerHeight / 2)}
-                y={-margin.left + 20}
+                y={-margin.left + 16}
                 text-anchor="middle"
                 transform="rotate(-90)"
                 class="axis-label">
@@ -138,7 +132,7 @@
     .container {
         display: flex;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .legend {
@@ -148,7 +142,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     .legend li {
@@ -167,18 +161,18 @@
     }
 
     .chart-title {
-        font-size: 1em;
-        font-weight: bold;
+        font-size: 0.9em;
+        font-weight: 600;
         fill: currentColor;
     }
 
     .axis-label {
-        font-size: 0.8em;
+        font-size: 0.68em;
         fill: currentColor;
     }
 
     .annotation {
-        font-size: 0.7em;
+        font-size: 0.52em;
         fill: black;
         font-style: italic;
     }
