@@ -8,9 +8,11 @@
     offset
   } from '@floating-ui/dom';
   import BarHorizontal from '$lib/BarHorizontal.svelte';
+  import LineChart from '$lib/LineChart.svelte';
 
   let locData = [];
   let commits = [];
+  let linesByDate = [];
   let width = 1000;
   let height = 600;
   let margin = { top: 20, right: 20, bottom: 30, left: 40 };
@@ -22,12 +24,29 @@
   };
   usableArea.width = usableArea.right - usableArea.left;
   usableArea.height = usableArea.bottom - usableArea.top;
+  let svg;
   let xAxis, yAxis, yAxisGridlines;
   let hoveredIndex = -1;
   let hoveredCommit = {};
   let clickedCommits = [];
   let commitTooltip;
   let tooltipPosition = { x: 0, y: 0 };
+
+  $: brushSelection = null;
+
+  function brushed(evt) {
+    brushSelection = evt.selection;
+  }
+
+  function isCommitBrushed(commit) {
+    if (!brushSelection) {
+      return false;
+    }
+    let [[x0, y0], [x1, y1]] = brushSelection;
+    let x = xScale(commit.datetime);
+    let y = yScale(commit.hourFrac);
+    return x >= x0 && x <= x1 && y >= y0 && y <= y1;
+  }
 
   async function dotInteraction(index, evt) {
     let hoveredDot = evt.target;
@@ -88,7 +107,20 @@
     console.log(commits);
   });
 
-  $: selectedLines = clickedCommits.length > 0 ? clickedCommits.flatMap(d => d.lines) : locData;
+  $: {
+    let rolled = d3.rollups(locData, v => v.length, d => d3.timeDay.floor(d.datetime))
+      .map(([date, count]) => ({ date, count }));
+    let [minDate, maxDate] = d3.extent(rolled, d => d.date);
+    let allDays = minDate && maxDate ? d3.timeDays(minDate, d3.timeDay.offset(maxDate, 1)) : [];
+    linesByDate = allDays.map(date => ({
+      date,
+      count: rolled.find(d => d.date.getTime() === date.getTime())?.count ?? 0
+    }));
+  }
+
+  $: brushedCommits = brushSelection ? commits.filter(isCommitBrushed) : [];
+  $: selectedCommits = Array.from(new Set([...clickedCommits, ...brushedCommits]));
+  $: selectedLines = (selectedCommits.length > 0 ? selectedCommits : commits).flatMap(d => d.lines);
   $: selectedCounts = d3.rollup(
     selectedLines,
     v => v.length,
@@ -113,6 +145,13 @@
     .domain(linesExtent[0] != null && linesExtent[1] != null ? linesExtent : [0, 1])
     .range([5, 30]);
   $: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
+  $: {
+    d3.select(svg).call(d3.brush()
+      .extent([[usableArea.left, usableArea.top], [usableArea.right, usableArea.bottom]])
+      .on("start brush end", brushed));
+    d3.select(svg).selectAll(".dots, .overlay ~ *").raise();
+  }
+
   $: if (xAxis && yAxis && yAxisGridlines) {
     d3.select(xAxis).call(d3.axisBottom(xScale));
     d3.select(yAxisGridlines).call(
@@ -137,6 +176,7 @@
   <svg
     viewBox={`0 0 ${width} ${height}`}
     style="max-width: 100%; height: auto; overflow: visible;"
+    bind:this={svg}
   >
     <g
       class="gridlines"
@@ -147,7 +187,7 @@
     <g transform={`translate(${usableArea.left}, 0)`} bind:this={yAxis} />
     {#each commits as commit, index}
       <circle
-        class:selected={clickedCommits.includes(commit)}
+        class:selected={selectedCommits.includes(commit)}
         on:mouseenter={evt => dotInteraction(index, evt)}
         on:mouseleave={evt => dotInteraction(index, evt)}
         on:click={evt => dotInteraction(index, evt)}
@@ -159,7 +199,7 @@
         }}
         role="button"
         tabindex="0"
-        aria-pressed={clickedCommits.includes(commit)}
+        aria-pressed={selectedCommits.includes(commit)}
         aria-label={`Commit ${commit.id} by ${commit.author}, ${commit.totalLines} edited lines`}
         cx={xScale(commit.datetime)}
         cy={yScale(commit.hourFrac)}
@@ -193,13 +233,17 @@
   </dl>
 </section>
 
+<p>{selectedCommits.length || 'No'} commits selected</p>
+
 <section>
   <h2>Lines of Code by Language</h2>
   <BarHorizontal
     data={barData}
-    title={clickedCommits.length > 0 ? 'Selected Commits Breakdown' : 'Website Breakdown'}
+    title={selectedCommits.length > 0 ? 'Selected Commits Breakdown' : 'Website Breakdown'}
   />
 </section>
+
+<LineChart data={linesByDate} />
 
 <style>
   circle {
@@ -257,6 +301,20 @@
 
   .gridlines :global(path) {
     display: none;
+  }
+
+  @keyframes marching-ants {
+    to {
+      stroke-dashoffset: -8; /* 5 + 3 */
+    }
+  }
+
+  svg :global(.selection) {
+    fill-opacity: 10%;
+    stroke: black;
+    stroke-opacity: 70%;
+    stroke-dasharray: 5 3;
+    animation: marching-ants 2s linear infinite;
   }
 </style>
 
